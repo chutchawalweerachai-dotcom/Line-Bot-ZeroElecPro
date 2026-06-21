@@ -46,13 +46,13 @@ ${userMessage}
   const candidatesTokenCount =
     response.usageMetadata?.candidatesTokenCount ?? 0;
 
-  console.log("[gemini]", { finishReason, thoughtsTokenCount, candidatesTokenCount });
+  const text = response.text?.trim() ?? "";
+  console.log("[gemini]", { finishReason, thoughtsTokenCount, candidatesTokenCount, textLength: text.length, textPreview: text.slice(0, 80) });
 
   if (finishReason === "MAX_TOKENS") {
     return DEFAULT_REPLY;
   }
 
-  const text = response.text?.trim();
   if (!text) {
     return DEFAULT_REPLY;
   }

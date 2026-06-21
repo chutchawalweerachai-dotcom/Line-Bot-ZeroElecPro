@@ -20,6 +20,7 @@ async function handleTextMessage(
 
   try {
     const faqCsv = await getFaqContent();
+    console.log("[webhook] faq loaded, length:", faqCsv.length);
     replyText = await getGeminiReply(faqCsv, userMessage);
   } catch (err) {
     console.error("[webhook] handleTextMessage error:", err);
