@@ -25,10 +25,15 @@ async function handleTextMessage(
     console.error("[webhook] handleTextMessage error:", err);
   }
 
-  await client.replyMessage({
-    replyToken,
-    messages: [{ type: "text", text: replyText }],
-  });
+  try {
+    await client.replyMessage({
+      replyToken,
+      messages: [{ type: "text", text: replyText }],
+    });
+    console.log("[webhook] reply sent:", replyText.slice(0, 50));
+  } catch (err) {
+    console.error("[webhook] replyMessage error:", err);
+  }
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
